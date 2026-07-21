@@ -1,15 +1,10 @@
-import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 import './WhyChooseUs.css'
 
 export default function WhyChooseUs() {
   return (
-    <motion.section
+    <section
       className="sec-why-choose-us relative pt-xl pb-xl"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Background Effects */}
       <div className="aurora-blue top-20 -left-40"></div>
@@ -192,6 +187,6 @@ export default function WhyChooseUs() {
           </div>
         </section>
       </div>
-    </motion.section>
+    </section>
   )
 }

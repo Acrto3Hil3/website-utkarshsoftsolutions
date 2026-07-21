@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import './Technology.css'
 
 /**
@@ -8,13 +7,9 @@ import './Technology.css'
  */
 export default function Technology() {
   return (
-    <motion.section
+    <section
       id="technology"
       className="sec-technology relative overflow-hidden"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       <div className="tech-grid" />
       {/* Global Ambient Auroras - Refined Gradients */}
@@ -202,6 +197,6 @@ export default function Technology() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

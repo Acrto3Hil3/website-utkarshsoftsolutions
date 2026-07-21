@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
 import './Services.css'
 
 export default function Services() {
@@ -36,13 +35,9 @@ export default function Services() {
   }, [])
 
   return (
-    <motion.section
+    <section
       id="services"
       className="sec-services relative overflow-hidden pt-xl pb-xl px-margin-mobile md:px-gutter"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Background Elements */}
       <div className="absolute inset-0 grid-bg z-0"></div>
@@ -232,6 +227,6 @@ export default function Services() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

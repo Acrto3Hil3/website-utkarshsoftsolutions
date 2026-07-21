@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 import './Process.css'
 
@@ -42,14 +41,10 @@ export default function Process() {
   }, [])
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
       id="process"
       className="sec-process min-h-[1000px] py-xl px-margin max-w-max-width mx-auto flex flex-col justify-center"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Header Group */}
       <div className="mb-lg max-w-4xl">
@@ -205,6 +200,6 @@ export default function Process() {
           </a>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

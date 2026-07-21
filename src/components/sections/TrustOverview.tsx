@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 
 /**
@@ -9,13 +8,9 @@ import { assets } from '../../lib/assets'
  */
 export default function TrustOverview() {
   return (
-    <motion.section
+    <section
       id="about"
       className="relative pt-32 pb-xl overflow-hidden"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Background Elements */}
       <div
@@ -265,6 +260,6 @@ export default function TrustOverview() {
           </div>
         </section>
       </div>
-    </motion.section>
+    </section>
   )
 }

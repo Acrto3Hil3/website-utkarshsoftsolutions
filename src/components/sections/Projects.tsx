@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { motion } from 'framer-motion'
 import { siteConfig } from '../../lib/site-config'
 import { trackEvent } from '../../lib/analytics'
 import './Projects.css'
@@ -75,14 +74,10 @@ export default function Projects() {
   }, [])
 
   return (
-    <motion.section
+    <section
       id="projects"
       ref={sectionRef}
       className="sec-projects relative pt-xl"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Atmospheric Background Assets */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -329,6 +324,6 @@ export default function Projects() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

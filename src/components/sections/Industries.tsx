@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import './Industries.css'
 
 /**
@@ -8,13 +7,9 @@ import './Industries.css'
  */
 export default function Industries() {
   return (
-    <motion.section
+    <section
       id="industries"
       className="sec-industries relative py-xl px-margin max-w-max-width mx-auto"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Background Elements */}
       <div className="aurora-bg">
@@ -231,6 +226,6 @@ export default function Industries() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

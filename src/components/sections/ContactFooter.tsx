@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { assets } from '../../lib/assets'
@@ -59,13 +58,9 @@ export default function ContactFooter() {
   }, [])
 
   return (
-    <motion.section
+    <section
       id="contact"
       className="sec-contact relative"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       <div className="grid-pattern absolute inset-0 z-0" aria-hidden="true" />
       <div className="relative z-10">
@@ -472,6 +467,6 @@ export default function ContactFooter() {
           </div>
         </footer>
       </div>
-    </motion.section>
+    </section>
   )
 }

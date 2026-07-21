@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 import { siteConfig } from '../../lib/site-config'
 import { trackEvent } from '../../lib/analytics'
@@ -6,13 +5,9 @@ import './Founder.css'
 
 export default function Founder() {
   return (
-    <motion.section
+    <section
       id="founder"
       className="sec-founder relative"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Aurora Accents */}
       <div className="aurora-bg top-[-20%] left-[-10%] bg-primary" />
@@ -272,6 +267,6 @@ export default function Founder() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

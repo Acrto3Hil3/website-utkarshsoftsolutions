@@ -1,15 +1,10 @@
-import { motion } from 'framer-motion'
 import './Testimonials.css'
 
 export default function Testimonials() {
   return (
-    <motion.section
+    <section
       id="testimonials"
       className="sec-testimonials relative min-h-screen py-xl overflow-hidden grid-bg"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6 }}
     >
       {/* Atmospheric Visual Elements */}
       <div className="aurora-blur top-[-10%] left-[-10%] bg-primary" />
@@ -313,6 +308,6 @@ export default function Testimonials() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 }
