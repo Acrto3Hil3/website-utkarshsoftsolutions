@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 import { trackEvent } from '../../lib/analytics'
-import ShaderBackground from '../common/ShaderBackground'
 
 /**
  * Hero section — `utkarsh_soft_solutions_premium_refined_hero` Stitch export,
@@ -17,12 +16,10 @@ export default function Hero() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Background Layer */}
+      {/* Background Layer — deep navy + auroras exactly as the Stitch hero export.
+          (The separate `shader` export washed out the background; it lives in
+          src/components/common/ShaderBackground.tsx if ever wanted.) */}
       <div className="absolute inset-0 z-0">
-        {/* WebGL shader animation (from the `shader` export), beneath the auroras */}
-        <div className="absolute inset-0 -z-20 opacity-40" aria-hidden="true">
-          <ShaderBackground />
-        </div>
         <div className="aurora aurora-1"></div>
         <div className="aurora aurora-2"></div>
         {/* Ambient Particles (Simulated with CSS) */}
