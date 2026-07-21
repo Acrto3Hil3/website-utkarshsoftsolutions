@@ -26,7 +26,7 @@ export default function WhyChooseUs() {
             <div className="relative rounded-[32px] overflow-hidden border border-white/5 aspect-square bg-surface-container-low shadow-2xl">
               <img
                 className="w-full h-full object-cover"
-                style={{ objectPosition: '75% 50%' }}
+                style={{ objectPosition: '90% 50%' }}
                 loading="lazy"
                 alt="A futuristic and highly detailed 3D digital illustration of a glowing blue holographic human brain integrated with circuit board patterns. Floating around it are sleek white cloud storage icons, digital data streams, and geometric HUD elements. The background is a deep navy space with subtle star-like particles and orange atmospheric light flares. Cinematic lighting and hyper-realistic glass textures define the premium technical aesthetic."
                 src={assets.whyChooseUsSecondary}
