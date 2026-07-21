@@ -1,0 +1,59 @@
+/* ============================================================
+   Development Process section — styles from the Stitch export
+   "utkarsh_soft_solutions_development_process_clean_refined",
+   scoped under .sec-process.
+   (.noise-overlay and .material-symbols-outlined were identical
+   to globals.css and are not re-declared.)
+   ============================================================ */
+
+/* Section-specific glass-card variant (differs from global .glass-card) */
+.sec-process .glass-card {
+  background: rgba(21, 27, 45, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.sec-process .glass-card:hover {
+  border-color: rgba(173, 198, 255, 0.3);
+  background: rgba(21, 27, 45, 0.9);
+  transform: translateY(-4px);
+  box-shadow: none;
+}
+
+.sec-process .glowing-line {
+  background: linear-gradient(90deg, transparent, rgba(173, 198, 255, 0.2), transparent);
+  height: 1px;
+  width: 100%;
+}
+
+.sec-process .primary-btn {
+  background-color: #ec6a06;
+  border-radius: 16px;
+  transition: transform 0.2s, brightness 0.2s;
+}
+
+.sec-process .primary-btn:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.sec-process .process-dot {
+  position: relative;
+}
+
+.sec-process .process-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(173, 198, 255, 0.3);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sec-process .glass-card:hover .process-dot::after {
+  opacity: 1;
+}

@@ -1,0 +1,35 @@
+/**
+ * Downloads the remaining Stitch-CDN images into src/assets/images so the
+ * site is fully self-hosted. Run locally:  node scripts/download-assets.mjs
+ * Then update src/lib/assets.ts to import the downloaded files.
+ */
+import { writeFile } from 'node:fs/promises'
+import path from 'node:path'
+
+const remote = {
+  'trust-logo.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuASB3huoZOJ2AO8ukW7jlMMh_iUKkW6aLpQjq2w_voP0wyjuLuDC28TP9eWt0UUWXGTgVtCObTzidRRFSZTqLOaMgi3svgurjg1z3dhKMk_RosumuUYf_gsPn6QbaTZrk3KviqG21FoAh72B8xGNhlsi4birLvz08nwy7n9o50P5w6diRm-XWdMVf7yOmGB2pJXwT5tBMENoTSBhUrxFAYXimyN3JZg6QvUFXU6tisUTe13djGFRMwTTB1fcIYQhsFlrXKBFeXK_sA',
+  'why-choose-us-illustration.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAYXFos5gSFhWmm1fF32GePRe3ry2QV40oIlbNGyni9mBMFu9AZKvoz1hj9YU3c6jwGlLWfeL6DInoCzMQXveLk0XZFl5XhAVQ6QNVo5y6AqBTEdeGP60JG2chC0n8Ma5b_3Vk0mYN6A3iTv5OSmutuLazSRwQTOYi7Bjz17dIuRMUDlFcSbqhZHobC36we6BVNw0VvBykcTORkkzGinHKdNcTG9iMwtsM0aqpe-bvCwEntd0JMjihxINRlHuYLXYaMqp6J-onSJ-g',
+  'why-choose-us-secondary.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBMF8J_foLo3WSMgt1jhORnbUvcuwdFSx_0zwIh_cJLJfJIoccyRmQ7i3_aX2IP3x2vj3vzQmK1q1yWrA7wKDE7m7cJH_ldZ6laJ-MSqn3PSaO0YYbrmg4-SfrIyPzhosyo8jJhE0K8ZSLjHDRMjR1eP3h8Rimy5kwg8otAS8Fz8cXyXPUNoMWAtw3lWq4wlOabIT9Im8-Q6Fxs49QxIDJLEjATLnda4uhe_dt2Vvt0G9UesjyximiGPzUftEjLTrtW5xFv83nNcuQ',
+  'process-visual.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuDLQkCDb4ytmetVzTMl_4L8FK29DUCJJ1E_wvFtT9fr3NLiRTJbsSrM5SAZIUW73INbLmn8vrjUtEc5z1Pf6bwXUHxvAqRdXXmZ6RLrfTLdFSxYxk78TQx4i38-XeH080hRzX7GlrElTEtpcdy4Nokkvg2iC25e11p4XZ9VZueEElVCWjs1ZmowwV_BUr3CyjwQ6B28Pz2ww1xgbEp2vFmq5BB8quHePLLP8JbTr5LGx8lCsQGOUYBrXpdQjPOzXrsCu-hgZY2nZnE',
+  'founder-secondary.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuD1OgVJs67R9_yYufieFj17v4EvTR6lpXgET9FIIx9lP5KythWgFfpaMvYg8mY1xEqFDG2WDyKip_prqYTxeWV4ASUZgHcvF83geZSjcsPvHRUfe-zzfn_sbHcWsBlgGUB8xu04gVuIwOvUU1r3JVq_iI_aMVW6fvd-LSNMuRPfDDstqVufoCGjzHBgZNR4f6s2fKR-RFVGPRECiTqrb4kAyLx-4-jWDY3-ej1G_zXbXZE1nPdbZ9a4F3Nna149UgawCvlbnvHecRY',
+  'qr-code.png':
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAsZgDLR7w1IjYaCaxNv1UqhxcnB0IT04A70Q1JI_IpHkE1KD3vDVhD0D47dRZ_wbwATXIEdm62Se1R5NV0TslHsjoIslgVFaeOaFiLRl7p48SBe7dE-lflWJGtEfPldgDtIKriwcPSfK61V4BwrNvzSYqdLQl6hx2AcaA7x9k9BdFv7AOxKSxq7bxPuv9dm_gx8kBvdxb-tTaymH7N307xXnDbad4DUmGpFWssUq67ncAa3jfA9ilE-4pm_n5nbEMqdcUgQgXt8AU',
+}
+
+const dest = path.resolve(import.meta.dirname, '../src/assets/images')
+
+for (const [name, url] of Object.entries(remote)) {
+  const res = await fetch(url)
+  if (!res.ok) {
+    console.error(`FAILED ${name}: HTTP ${res.status}`)
+    continue
+  }
+  await writeFile(path.join(dest, name), Buffer.from(await res.arrayBuffer()))
+  console.log(`Downloaded ${name}`)
+}
+console.log('Done. Now update src/lib/assets.ts to import these local files.')

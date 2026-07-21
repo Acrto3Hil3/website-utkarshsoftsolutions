@@ -1,0 +1,57 @@
+/* Section-specific styles from the Client Success export, scoped under .sec-testimonials */
+
+/* Export defines its own glass-card variant (different from the global one) */
+.sec-testimonials .glass-card {
+  background: rgba(21, 27, 45, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sec-testimonials .glass-card:hover {
+  border-color: #adc6ff;
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
+  background: rgba(21, 27, 45, 0.7);
+}
+
+.sec-testimonials .aurora-blur {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 100%;
+  filter: blur(120px);
+  z-index: -1;
+  opacity: 0.15;
+}
+
+.sec-testimonials .marquee-container {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@keyframes testimonials-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.sec-testimonials .animate-scroll {
+  animation: testimonials-scroll 30s linear infinite;
+}
+
+/* Export's grid background (40px, different from global .grid-pattern) */
+.sec-testimonials .grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.sec-testimonials .counter-value {
+  background: linear-gradient(to bottom, #ffffff, #adc6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,74 @@
+/* ============================================================
+   Section-scoped styles — "Why Choose Us" Stitch export.
+   Scoped under .sec-why-choose-us; values copied verbatim from
+   the export's <style> block (only classes that differ from
+   globals.css are re-declared here).
+   ============================================================ */
+
+.sec-why-choose-us .aurora-blue {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.sec-why-choose-us .aurora-orange {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 106, 6, 0.12) 0%, rgba(236, 106, 6, 0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+/* This export's glass-card differs from the global one
+   (denser background, no resting shadow, lift-only hover). */
+.sec-why-choose-us .glass-card {
+  background: rgba(21, 27, 45, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none; /* neutralize the global .glass-card resting shadow */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sec-why-choose-us .glass-card:hover {
+  border-color: rgba(173, 198, 255, 0.3);
+  transform: translateY(-4px);
+  background: rgba(21, 27, 45, 0.8);
+  box-shadow: none;
+}
+
+.sec-why-choose-us .stat-card {
+  background: linear-gradient(145deg, #151b2d 0%, #0c1324 100%);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sec-why-choose-us .btn-primary {
+  background-color: #ec6a06;
+  transition: all 0.3s ease;
+}
+
+.sec-why-choose-us .btn-primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* Renamed from the export's `countUp` to avoid global keyframe
+   name collisions across sections. */
+@keyframes sec-why-choose-us-count-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sec-why-choose-us .animate-count {
+  animation: sec-why-choose-us-count-up 0.8s ease-out forwards;
+}

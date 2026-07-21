@@ -1,0 +1,33 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        VITE_LINKEDIN: ${VITE_LINKEDIN:-}
+        VITE_GITHUB: ${VITE_GITHUB:-}
+        VITE_PORTFOLIO: ${VITE_PORTFOLIO:-}
+        VITE_WHATSAPP: ${VITE_WHATSAPP:-}
+        VITE_GA_MEASUREMENT_ID: ${VITE_GA_MEASUREMENT_ID:-}
+        VITE_CLARITY_PROJECT_ID: ${VITE_CLARITY_PROJECT_ID:-}
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - '3000:3000'
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Optional TLS-terminating reverse proxy. Remove if your host provides one.
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - '80:80'
+      # - '443:443'   # enable after adding certificates (see nginx.conf)
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      # - ./certs:/etc/nginx/certs:ro

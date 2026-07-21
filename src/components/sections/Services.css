@@ -1,0 +1,87 @@
+/* ============================================================
+   Section-scoped styles — "Our Services" Stitch export.
+   Scoped under .sec-services; values copied verbatim from the
+   export's <style> block (only classes that differ from
+   globals.css are re-declared here).
+   ============================================================ */
+
+.sec-services .aurora-blur {
+  position: absolute;
+  filter: blur(100px);
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sec-services .grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* This export's glass-card differs from the global one
+   (no resting shadow, different hover treatment). */
+.sec-services .glass-card {
+  background: rgba(21, 27, 45, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none; /* neutralize the global .glass-card resting shadow */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sec-services .glass-card:hover {
+  border-color: rgba(173, 198, 255, 0.3);
+  background: rgba(21, 27, 45, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.sec-services .glass-card:hover .service-icon {
+  color: #adc6ff;
+  transform: scale(1.1);
+}
+
+.sec-services .glow-button-primary {
+  background: #ec6a06; /* Primary Orange */
+  box-shadow: 0 0 20px rgba(236, 106, 6, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sec-services .glow-button-primary:hover {
+  background: #ff7d1a;
+  box-shadow: 0 0 30px rgba(236, 106, 6, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Export uses wght 300 (global is 400) plus a transition. */
+.sec-services .material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  transition: all 0.3s ease;
+}
+
+.sec-services .particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Renamed from the export's `float` to avoid clashing with the
+   Tailwind-configured float keyframes (animate-float utility). */
+@keyframes sec-services-particle-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,98 @@
+/* ============================================================
+   Section-scoped styles — "Featured Projects (clean refined)"
+   Stitch export. Scoped under .sec-projects; values copied
+   verbatim from the export's <style> block (only classes that
+   differ from globals.css are re-declared here).
+   ============================================================ */
+
+/* This export's glass-card differs from the global one
+   (no resting shadow, slower easing, bigger hover lift). */
+.sec-projects .glass-card {
+  background: rgba(21, 27, 45, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none; /* neutralize the global .glass-card resting shadow */
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sec-projects .glass-card:hover {
+  border-color: rgba(173, 198, 255, 0.3);
+  background: rgba(21, 27, 45, 0.6);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+.sec-projects .glow-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sec-projects .glow-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sec-projects .glow-button:hover::after {
+  opacity: 1;
+}
+
+.sec-projects .marquee-container {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+/* Renamed from the export's `marquee` to avoid global keyframe
+   name collisions across sections. */
+@keyframes sec-projects-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.sec-projects .animate-marquee {
+  display: flex;
+  width: fit-content;
+  animation: sec-projects-marquee 40s linear infinite;
+}
+
+.sec-projects .status-badge {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-weight: 700;
+}
+
+.sec-projects .scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sec-projects .scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sec-projects .tech-chip {
+  background: rgba(173, 198, 255, 0.05);
+  border: 1px solid rgba(173, 198, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sec-projects .tech-chip:hover {
+  background: rgba(173, 198, 255, 0.15);
+  border-color: rgba(173, 198, 255, 0.3);
+}

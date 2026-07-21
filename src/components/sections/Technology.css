@@ -1,0 +1,69 @@
+/* ============================================================
+   Technology section — styles from the Stitch export
+   "utkarsh_soft_solutions_technology_stack_clean_refined",
+   scoped under .sec-technology.
+   NOTE: the export used position: fixed for .tech-grid and the
+   aurora blobs (standalone page). Scoped to the section with
+   position: absolute for the composed one-page site.
+   ============================================================ */
+
+.sec-technology .tech-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Section-specific glass-card variant (differs from global .glass-card) */
+.sec-technology .glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: none;
+}
+
+.sec-technology .glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(173, 198, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.sec-technology .aurora-blur {
+  filter: blur(140px);
+  opacity: 0.25;
+  pointer-events: none;
+  transition: opacity 2s ease-in-out;
+}
+
+.sec-technology .tech-pill {
+  background: rgba(173, 198, 255, 0.05);
+  border: 1px solid rgba(173, 198, 255, 0.1);
+  color: #adc6ff;
+}
+
+/* Section-specific float variant (10s + subtle scale, differs from the
+   global Tailwind float utility) */
+@keyframes tech-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.02);
+  }
+}
+
+.sec-technology .animate-float {
+  animation: tech-float 10s ease-in-out infinite;
+}
+
+.sec-technology .text-sharp {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}

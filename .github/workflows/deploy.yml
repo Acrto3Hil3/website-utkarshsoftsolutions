@@ -1,0 +1,67 @@
+name: CI & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Lint, typecheck & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: |
+            dist
+            dist-server
+          retention-days: 7
+
+  # ------------------------------------------------------------------
+  # Deployment jobs — enable the one matching your host by removing the
+  # `if: false` line and adding the required secrets in
+  # Repo → Settings → Secrets and variables → Actions.
+  # ------------------------------------------------------------------
+
+  deploy-vercel:
+    name: Deploy to Vercel
+    if: ${{ false }} # enable when using Vercel; add VERCEL_TOKEN secret
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+  deploy-vps:
+    name: Deploy to VPS (Hostinger / GoDaddy / EC2 / DigitalOcean)
+    if: ${{ false }} # enable for VPS; add SSH_HOST, SSH_USER, SSH_KEY secrets
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /var/www/utkarsh-soft-solutions
+            git pull origin main
+            npm ci
+            npm run build
+            # with pm2:
+            pm2 restart utkarsh-site || pm2 start dist-server/index.js --name utkarsh-site
+            # or with docker:
+            # docker compose up -d --build
