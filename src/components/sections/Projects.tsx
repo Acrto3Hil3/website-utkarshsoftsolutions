@@ -4,29 +4,37 @@ import { siteConfig } from '../../lib/site-config'
 import { trackEvent } from '../../lib/analytics'
 import './Projects.css'
 
-type ProjectEntry = { url: string | null; confidential?: boolean }
+type ProjectEntry = { url: string | null; appUrl?: string | null; confidential?: boolean }
 
 /**
  * Resolves a project card CTA through siteConfig.projects (keyed by the card's
- * exact title). With a live url → real external link; confidential → non-link
- * treatment; no entry yet → non-navigating placeholder. The design's classes
- * and label are used verbatim in every case.
+ * exact title). With a live url/appUrl → real external link (prefer="app"
+ * links to the app-store URL first); confidential → non-link treatment; no
+ * entry yet → non-navigating placeholder. The design's classes and label are
+ * used verbatim in every case.
  */
 function ProjectCta({
   title,
   className,
   children,
+  prefer,
 }: {
   title: string
   className: string
   children: ReactNode
+  prefer?: 'app' | 'web'
 }) {
   const entry: ProjectEntry | undefined = siteConfig.projects[title]
-  if (entry && entry.url) {
+  const href = entry
+    ? prefer === 'app'
+      ? (entry.appUrl ?? entry.url)
+      : (entry.url ?? entry.appUrl)
+    : null
+  if (entry && href) {
     return (
       <a
         className={className}
-        href={entry.url}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackEvent('project_link_click', { project: title })}
@@ -161,7 +169,7 @@ export default function Projects() {
               <span className="tech-chip px-3 py-1 rounded-md text-[12px] font-mono">GCP</span>
             </div>
             <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-              <ProjectCta title="FieldSathi" className="text-primary font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
+              <ProjectCta title="FieldSathi" prefer="app" className="text-primary font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
                 View App <span className="material-symbols-outlined text-xs">arrow_forward</span>
               </ProjectCta>
               <button type="button" className="text-on-surface-variant font-medium text-sm hover:text-high transition-colors">Request Demo</button>
