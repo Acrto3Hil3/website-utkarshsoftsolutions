@@ -7,6 +7,7 @@
  *
  * Serves the built SPA from dist/ and exposes POST /api/contact.
  */
+import 'dotenv/config' // loads .env from the project root (no-op if absent)
 import express, { type Request, type Response, type NextFunction } from 'express'
 import path from 'node:path'
 import fs from 'node:fs'
