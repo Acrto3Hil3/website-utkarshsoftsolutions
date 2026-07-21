@@ -1,5 +1,6 @@
 import { siteConfig } from '../../lib/site-config'
 import { assets } from '../../lib/assets'
+import { trackEvent } from '../../lib/analytics'
 
 /**
  * Fixed top navigation — extracted verbatim from the
@@ -38,6 +39,7 @@ export default function Navbar() {
         <a
           className="bg-secondary-container text-white px-8 py-3 rounded-[16px] font-bold text-body-sm uppercase tracking-widest btn-primary-hover shadow-lg shadow-secondary-container/20"
           href="#contact"
+          onClick={() => trackEvent('cta_click', { cta: 'navbar_get_started' })}
         >
           Get Started
         </a>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
 import { siteConfig } from '../../lib/site-config'
+import { trackEvent } from '../../lib/analytics'
 import './Founder.css'
 
 export default function Founder() {
@@ -39,6 +40,7 @@ export default function Founder() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
+                onClick={() => trackEvent('social_click', { network: 'linkedin' })}
               >
                 <span className="material-symbols-outlined">share</span>
               </a>
@@ -48,6 +50,7 @@ export default function Founder() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
+                onClick={() => trackEvent('social_click', { network: 'github' })}
               >
                 <span className="material-symbols-outlined">code</span>
               </a>
@@ -55,6 +58,7 @@ export default function Founder() {
                 className="w-10 h-10 rounded-full glass-card flex items-center justify-center hover:text-primary"
                 href={siteConfig.social.email}
                 aria-label="Email"
+                onClick={() => trackEvent('email_click')}
               >
                 <span className="material-symbols-outlined">mail</span>
               </a>
@@ -64,6 +68,7 @@ export default function Founder() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Portfolio"
+                onClick={() => trackEvent('social_click', { network: 'portfolio' })}
               >
                 <span className="material-symbols-outlined">account_circle</span>
               </a>

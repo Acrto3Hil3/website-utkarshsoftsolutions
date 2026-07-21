@@ -12,7 +12,10 @@ export interface Inquiry {
 
 const COMPANY_NAME = process.env.COMPANY_NAME ?? 'Utkarsh Soft Solutions'
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'utkarshsoftsolutions@gmail.com'
-const PHONE = process.env.PHONE ?? '+91 62838 44258'
+const PHONE = process.env.PHONE ?? process.env.PHONE_NUMBER ?? '+91 62838 44258'
+const BUSINESS_HOURS = process.env.BUSINESS_HOURS ?? 'Mon–Fri 09:00–17:00 IST'
+const SATURDAY_HOURS = process.env.SATURDAY_HOURS ?? 'Sat 10:00–16:00 IST'
+const RESPONSE_TIME = process.env.RESPONSE_TIME ?? 'within 24 business hours'
 
 const CATEGORY_INTRO: Record<InquiryCategory, string> = {
   'ERP Development':
@@ -25,6 +28,8 @@ const CATEGORY_INTRO: Record<InquiryCategory, string> = {
     'Thank you for your interest in process automation. Our team will map your described workflow against proven automation patterns and reply with a feasibility outline and expected efficiency gains.',
   'Website / Web Application':
     'Thank you for your interest in our web engineering services. Our team will review your requirements and respond with a recommended technical approach, project phases, and timeline estimate.',
+  'Mobile App Development':
+    'Thank you for your interest in our mobile app development services. Our team will review your requirements — platforms, features, and integrations — and respond with a recommended approach, technology choice, and timeline estimate.',
   Support:
     'Thank you for contacting our support desk. Your request has been logged and routed to the on-duty engineer. We prioritize production-impacting issues and will respond as quickly as possible.',
   'Job Application':
@@ -82,7 +87,8 @@ export function acknowledgementEmailHtml(category: InquiryCategory, d: Inquiry):
     <div style="padding:24px;font-size:14px;color:#0f172a;line-height:1.7">
       <p style="margin:0 0 16px">Dear ${esc(firstName)},</p>
       <p style="margin:0 0 16px">${CATEGORY_INTRO[category]}</p>
-      <p style="margin:0 0 16px">We typically respond within one business day. If your request is urgent, you can reach us directly at <a href="tel:${telHref}" style="color:#005ac2">${PHONE}</a>.</p>
+      <p style="margin:0 0 16px">We typically respond ${RESPONSE_TIME.toLowerCase().startsWith('within') ? RESPONSE_TIME.toLowerCase() : RESPONSE_TIME}. If your request is urgent, you can reach us directly at <a href="tel:${telHref}" style="color:#005ac2">${PHONE}</a>.</p>
+      <p style="margin:0 0 16px;color:#64748b;font-size:13px">Business hours: ${BUSINESS_HOURS} · ${SATURDAY_HOURS}</p>
       <p style="margin:0 0 4px">Warm regards,</p>
       <p style="margin:0;font-weight:bold">The ${COMPANY_NAME} Team</p>
       <p style="margin:2px 0 0;color:#64748b">${CONTACT_EMAIL}</p>

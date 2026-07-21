@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { assets } from '../../lib/assets'
 import { siteConfig } from '../../lib/site-config'
 import { contactSchema, type ContactFormData } from '../../lib/contact-schema'
+import { trackEvent } from '../../lib/analytics'
 import './ContactFooter.css'
 
 export default function ContactFooter() {
@@ -29,6 +30,7 @@ export default function ContactFooter() {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('idle')
+    trackEvent('contact_form_submit', { service: data.service })
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -38,12 +40,23 @@ export default function ContactFooter() {
       if (!res.ok) {
         throw new Error(`Request failed with status ${res.status}`)
       }
+      const payload = (await res.json().catch(() => null)) as { category?: string } | null
+      trackEvent(
+        'contact_form_success',
+        typeof payload?.category === 'string' ? { category: payload.category } : undefined,
+      )
       setStatus('success')
       reset()
     } catch {
+      trackEvent('contact_form_error')
       setStatus('error')
     }
   }
+
+  // The QR code image is always rendered in this section — record one view per mount.
+  useEffect(() => {
+    trackEvent('qr_view')
+  }, [])
 
   return (
     <motion.section
@@ -275,6 +288,7 @@ export default function ContactFooter() {
                   <button
                     className="flex-1 border border-primary/30 bg-primary/5 text-primary font-bold py-4 px-8 rounded-2xl hover:bg-primary/10 transition-all"
                     type="button"
+                    onClick={() => trackEvent('download', { item: 'capability_deck' })}
                   >
                     Download Capability Deck
                   </button>
@@ -307,6 +321,7 @@ export default function ContactFooter() {
                 rel="noopener noreferrer"
                 title="LinkedIn"
                 aria-label="LinkedIn"
+                onClick={() => trackEvent('social_click', { network: 'linkedin' })}
               >
                 <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -319,6 +334,7 @@ export default function ContactFooter() {
                 rel="noopener noreferrer"
                 title="GitHub"
                 aria-label="GitHub"
+                onClick={() => trackEvent('social_click', { network: 'github' })}
               >
                 <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -331,6 +347,7 @@ export default function ContactFooter() {
                 rel="noopener noreferrer"
                 title="WhatsApp"
                 aria-label="WhatsApp"
+                onClick={() => trackEvent('whatsapp_click')}
               >
                 <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.29-4.143c1.589.943 3.111 1.462 4.795 1.463 5.405 0 9.803-4.397 9.805-9.802 0-2.618-1.02-5.079-2.872-6.932-1.851-1.853-4.311-2.873-6.93-2.873-5.405 0-9.803 4.397-9.805 9.802 0 1.812.487 3.535 1.411 5.011l-.955 3.486 3.546-.931zm11.387-5.464c-.301-.15-1.779-.878-2.055-.978-.275-.1-.475-.15-.675.15-.2.3-.775 1.002-.95 1.202-.175.2-.35.225-.651.075-.3-.15-1.264-.467-2.408-1.487-.888-.793-1.488-1.773-1.663-2.074-.175-.3-.019-.462.131-.611.135-.134.301-.35.451-.525.149-.175.199-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.628-.925-2.228-.243-.584-.489-.505-.675-.514-.175-.008-.375-.01-.575-.01s-.525.075-.8.375c-.275.3-1.05 1.027-1.05 2.505s1.075 2.903 1.225 3.103c.15.2 2.116 3.229 5.125 4.527.716.309 1.275.493 1.71.632.719.228 1.373.196 1.891.118.577-.087 1.779-.726 2.029-1.428.25-.702.25-1.303.175-1.428-.075-.125-.275-.2-.575-.35z" />
@@ -341,6 +358,7 @@ export default function ContactFooter() {
                 href={siteConfig.social.email}
                 title="Email"
                 aria-label="Email"
+                onClick={() => trackEvent('email_click')}
               >
                 <span className="material-symbols-outlined">alternate_email</span>
               </a>
@@ -351,6 +369,7 @@ export default function ContactFooter() {
                 rel="noopener noreferrer"
                 title="Portfolio"
                 aria-label="Portfolio"
+                onClick={() => trackEvent('social_click', { network: 'portfolio' })}
               >
                 <span className="material-symbols-outlined">work</span>
               </a>

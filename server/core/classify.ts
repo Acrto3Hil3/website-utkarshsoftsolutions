@@ -9,6 +9,7 @@ export const CATEGORIES = [
   'Cloud Services',
   'Automation',
   'Website / Web Application',
+  'Mobile App Development',
   'Support',
   'Job Application',
   'Partnership',
@@ -31,6 +32,7 @@ const KEYWORD_RULES: Array<{ category: InquiryCategory; patterns: RegExp[] }> = 
   { category: 'AI Development', patterns: [/\b(ai|artificial intelligence|machine learning|ml|llm|chatbot|automation model|computer vision|nlp)\b/i] },
   { category: 'Cloud Services', patterns: [/\b(cloud|aws|azure|gcp|devops|kubernetes|docker|migration|hosting|serverless)\b/i] },
   { category: 'Automation', patterns: [/\b(automat|workflow|rpa|integration|zapier|pipeline)\b/i] },
+  { category: 'Mobile App Development', patterns: [/\b(mobile ?app|android|ios|iphone|flutter|react native|play ?store|app ?store)\b/i] },
   { category: 'Website / Web Application', patterns: [/\b(website|web ?app|landing page|e-?commerce|portal|frontend|react|next\.?js)\b/i] },
 ]
 
@@ -38,6 +40,7 @@ const SERVICE_MAP: Array<{ match: RegExp; category: InquiryCategory }> = [
   { match: /ai|machine learning/i, category: 'AI Development' },
   { match: /erp|enterprise/i, category: 'ERP Development' },
   { match: /cloud|infra/i, category: 'Cloud Services' },
+  { match: /mobile|app development/i, category: 'Mobile App Development' },
   { match: /web|website|application/i, category: 'Website / Web Application' },
   { match: /automation/i, category: 'Automation' },
   { match: /support/i, category: 'Support' },

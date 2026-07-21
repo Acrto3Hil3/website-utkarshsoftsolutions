@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '../../lib/site-config'
+import { trackEvent } from '../../lib/analytics'
 import './Projects.css'
 
 type ProjectEntry = { url: string | null; confidential?: boolean }
@@ -24,7 +25,13 @@ function ProjectCta({
   const entry: ProjectEntry | undefined = siteConfig.projects[title]
   if (entry && entry.url) {
     return (
-      <a className={className} href={entry.url} target="_blank" rel="noopener noreferrer">
+      <a
+        className={className}
+        href={entry.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackEvent('project_link_click', { project: title })}
+      >
         {children}
       </a>
     )

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { assets } from '../../lib/assets'
+import { trackEvent } from '../../lib/analytics'
 import ShaderBackground from '../common/ShaderBackground'
 
 /**
@@ -72,6 +73,7 @@ export default function Hero() {
               <a
                 href="#contact"
                 className="bg-secondary-container text-white px-10 py-5 rounded-[16px] font-bold text-body-lg flex items-center gap-3 btn-primary-hover group shadow-2xl shadow-secondary-container/30"
+                onClick={() => trackEvent('cta_click', { cta: 'hero_get_started' })}
               >
                 Get Started
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
@@ -81,6 +83,7 @@ export default function Hero() {
               <a
                 href="#projects"
                 className="border-2 border-primary/40 text-primary px-10 py-5 rounded-[16px] font-bold text-body-lg hover:bg-primary/10 transition-all duration-300 backdrop-blur-sm"
+                onClick={() => trackEvent('cta_click', { cta: 'hero_view_projects' })}
               >
                 View Projects
               </a>

@@ -36,6 +36,9 @@ async function sendEmail(payload: Record<string, unknown>): Promise<Response> {
 }
 
 export async function handleContact(raw: unknown): Promise<ContactResult> {
+  if (String(process.env.ENABLE_EMAIL_SERVICE ?? 'true').toLowerCase() === 'false') {
+    return { status: 503, body: { error: 'Email service is currently disabled.' } }
+  }
   if (!process.env.RESEND_API_KEY) {
     return { status: 503, body: { error: 'Email service is not configured. Set RESEND_API_KEY.' } }
   }
@@ -70,8 +73,17 @@ export async function handleContact(raw: unknown): Promise<ContactResult> {
     (await classifyWithAI(service, data.message)) ??
     classifyInquiry({ service, message: `${data.message} ${service ?? ''}` })
 
-  const from = process.env.CONTACT_FROM ?? process.env.FROM_EMAIL ?? 'Utkarsh Soft Solutions <onboarding@resend.dev>'
-  const to = process.env.CONTACT_TO ?? process.env.CONTACT_EMAIL ?? 'utkarshsoftsolutions@gmail.com'
+  // Sender/recipient with env aliases (first non-empty wins).
+  const from =
+    process.env.CONTACT_FROM ??
+    process.env.FROM_EMAIL ??
+    process.env.RESEND_FROM ??
+    'Utkarsh Soft Solutions <onboarding@resend.dev>'
+  const to =
+    process.env.CONTACT_TO ??
+    process.env.CONTACT_RECEIVER_EMAIL ??
+    process.env.CONTACT_EMAIL ??
+    'utkarshsoftsolutions@gmail.com'
 
   // 1. Internal notification (must succeed).
   try {

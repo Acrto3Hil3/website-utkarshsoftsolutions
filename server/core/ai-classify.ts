@@ -77,6 +77,11 @@ async function classifyWithOpenAI(apiKey: string, service: string | undefined, m
 
 /** Returns a category from AI, or null when AI is unavailable/disabled/failed. */
 export async function classifyWithAI(service: string | undefined, message: string): Promise<InquiryCategory | null> {
+  // Explicit kill switch: ENABLE_AI_CLASSIFICATION=false disables AI even
+  // when keys are present. Unset/true → key presence decides.
+  if (String(process.env.ENABLE_AI_CLASSIFICATION ?? 'true').toLowerCase() === 'false') {
+    return null
+  }
   try {
     const anthropicKey = process.env.ANTHROPIC_API_KEY
     if (anthropicKey) return await classifyWithAnthropic(anthropicKey, service, message)
